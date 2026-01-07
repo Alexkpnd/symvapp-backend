@@ -1,6 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import userRoutes from './routes/user.route';
+import contractRoutes from './routes/contract.route';
 import { pageNotFound } from './middlewares/pageNotFound.middleware';
 import { errorHandler } from './middlewares/ErrorHandler.middleware';
 
@@ -10,7 +11,8 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 
-app.use('/api/users', userRoutes);
+app.use('/api/users', userRoutes)
+app.use('/api/contracts', contractRoutes)
 
 app.use(pageNotFound)
 app.use(errorHandler)
