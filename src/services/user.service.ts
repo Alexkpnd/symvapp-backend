@@ -1,6 +1,8 @@
 import User, {IUser} from '../models/user.model';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
+import { EmptyListError } from '../errors/EmptyListError';
+import { UserNotFoundError } from '../errors/UserNotFoundError';
 
 dotenv.config();
 
@@ -9,7 +11,9 @@ const SALT = parseInt(process.env.SALT_ROUNDS!);
 
 export const findAllUsers = async() => {
     const result = await User.find();
-    if (result.length === 0) return ({message: "No users in DATABASE"})
+    if (result.length === 0) {
+        throw new EmptyListError("No users in database", 404)
+    }
     return result;
 }
 
@@ -43,8 +47,16 @@ export const updateUserByEmail = async(email:string, payload: Partial<IUser>) =>
         const hashed = await bcrypt.hash(payload.password, SALT);
         payload.password = hashed;
     }
-    let user = await User.findOne({email:email})
-    if (!user) return ({message:"User not found"})
+    const res = await User.find();
+    if (res.length === 0 ) {
+        throw new EmptyListError("Empty list", 404);
+    }
+
+    const user = await User.findOne({email:email})
+    if (!user) {
+        throw new UserNotFoundError("User not found", 404);
+    }
+        
     const updatedUser = await User.updateOne({email: user!.email},{$set:payload})
     //const updatedUser = await User.findOneAndUpdate({email: email},{$set:payload}) // 
     return updatedUser

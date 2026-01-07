@@ -6,8 +6,8 @@ export const getAllUsers = async (req:Request, res:Response, next:NextFunction) 
     try {
         const AllUsersResult = await userService.findAllUsers();
         res.status(200).json(AllUsersResult)
-    } catch (err) {
-        res.status(400).json({message: err});
+    } catch (err:any) {
+        next(err);
     }
 }
 
@@ -16,7 +16,7 @@ export const createUser = async (req:Request, res:Response, next:NextFunction) =
         const createUserResult = await userService.createUser(req.body);
         res.status(201).json(createUserResult);
     } catch (err) {
-        res.status(400).json({message:"Error in User Creation", error: err})
+        next(err)
     }
 }
 
@@ -25,7 +25,7 @@ export const updateUser = async(req:Request, res:Response, next:NextFunction) =>
         const updateUserResult = await userService.updateUser(req.params.id!, req.body);
         res.status(201).json(updateUserResult);
     } catch (err) {
-        res.status(400).json({message:`Error in updating user.`, error :err});
+        next(err);
     }
 }
 
@@ -34,7 +34,7 @@ export const updateUserByEmail = async (req:Request, res:Response, next:NextFunc
         const updateUserResult = await userService.updateUserByEmail(req.params.email!, req.body);
         res.status(201).json(updateUserResult);
     }catch (err) {
-        res.status(400).json({message:`Error in updating user`, error :err});
+        next(err);
     }
 }
 
@@ -43,6 +43,6 @@ export const removeUserById = async (req:Request, res:Response, next:NextFunctio
         const deletedUserResult = await userService.deleteUserById(req.params.id!)
         res.status(201).json(deletedUserResult);
     } catch (err) {
-        res.status(400).json({message:"Error in deleting user", error:err});
+        next(err);
     }
 }

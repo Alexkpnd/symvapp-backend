@@ -1,6 +1,8 @@
 import express from 'express';
 import morgan from 'morgan';
 import userRoutes from './routes/user.route';
+import { pageNotFound } from './middlewares/pageNotFound.middleware';
+import { errorHandler } from './middlewares/ErrorHandler.middleware';
 
 const app = express();
 
@@ -10,4 +12,6 @@ app.use(morgan('dev'));
 
 app.use('/api/users', userRoutes);
 
+app.use(pageNotFound)
+app.use(errorHandler)
 export default app;
