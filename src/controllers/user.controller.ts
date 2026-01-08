@@ -15,7 +15,7 @@ export const createUser = async (req:Request, res:Response, next:NextFunction) =
     try {
         const createUserResult = await userService.createUser(req.body);
         res.status(201).json(createUserResult);
-    } catch (err) {
+    } catch (err:any) {
         next(err)
     }
 }

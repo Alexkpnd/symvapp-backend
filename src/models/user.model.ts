@@ -16,6 +16,7 @@ export interface IPhone {
 export interface IUser extends Document {
     email: string;
     password: string;
+    username: string;
     firstname?: string;
     lastname?: string;
     role?: string;
@@ -46,8 +47,9 @@ const PhoneSchema = new Schema<IPhone>({
 
 
 const UserSchema = new Schema<IUser> ({
-    email: {type: String, required: [true, "Email is a required field."], unique: true, trim:true, lowercase: true, index:true},
+    email: {type: String, required: [true, "Email is a required field."], unique: [true, "Email already exists"], trim:true, lowercase: true, index:true},
     password: {type: String, required:[true, "Password is a required field."]},
+    username: {type: String, required: [true, "Username is a required filed"], unique:[true, "Username already exists"]},
     firstname: {type: String},
     lastname: {type: String},
     role: {type: String, enum: ["ADMIN", "EDITOR"], default:"EDITOR"},

@@ -1,5 +1,5 @@
 import Contract, { IContract } from '../models/contract.model';
-import { EmptyListError } from '../errors/EmptyListError';
+import { EmptyListError } from '../errors/emptyListError';
 import { AlreadyExistsError } from '../errors/alreadyExistsError';
 
 

@@ -1,8 +1,9 @@
 import User, {IUser} from '../models/user.model';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
-import { EmptyListError } from '../errors/EmptyListError';
-import { UserNotFoundError } from '../errors/UserNotFoundError';
+import { EmptyListError } from '../errors/emptyListError';
+import { UserNotFoundError } from '../errors/userNotFoundError';
+import { AlreadyExistsError } from '../errors/alreadyExistsError';
 
 dotenv.config();
 
@@ -23,7 +24,20 @@ export const createUser = async(payload: IUser ) => {
         const hashed = await bcrypt.hash(payload.password, SALT);
         payload.password = hashed;
     }
+    if (payload.email) {
+        const existedEmail = await User.findOne({email: payload.email})
+        if (existedEmail) {
+            throw new AlreadyExistsError("User with this email already exists.", 409)
+        }
+    } 
 
+    if (payload.username) {
+        const existedUsername = await User.findOne({username: payload.username})
+        if (existedUsername) {
+            throw new AlreadyExistsError("User with this username already exists", 409)
+        }
+    }
+    
     // if (payload.role) {
     //     payload.role = "EDITOR";
     // }
