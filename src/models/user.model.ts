@@ -19,7 +19,7 @@ export interface IUser extends Document {
     username: string;
     firstname?: string;
     lastname?: string;
-    role?: string;
+    role: string;
     address?: IAddress;
     phone?: IPhone[];
 }
