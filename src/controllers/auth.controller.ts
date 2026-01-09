@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import * as authService from '../services/auth.service';
 
+
 export const login = async (req:Request, res: Response, next: NextFunction) => {
     try {
         const {email, password} = req.body;
@@ -14,8 +15,12 @@ export const login = async (req:Request, res: Response, next: NextFunction) => {
 export const register = async (req:Request, res: Response, next: NextFunction) => {
     try {
         const created = await authService.register(req.body);
-        res.status(201).json({id:created._id, username: created.username})
+        res.status(201).json({id:created._id, username: created.username, role: created.role})
     }catch (err) {
         next(err);
     }
 }
+
+// export const me = async (req:Request, res: Response, next: NextFunction) =>{
+//     console.log("Me>>", req.user)
+// }
