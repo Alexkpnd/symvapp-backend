@@ -7,6 +7,8 @@ import { RequiredFieldError } from "../errors/requiredFieldError";
 import { ZodError } from "zod";
 import { ValidatedObjIdError } from "../errors/valObjectIdError";
 import { NotAuthenticatedError } from "../errors/notAuthenticatedError";
+import { ContractNotFoundError } from "../errors/contractNoFoundError";
+import { NoPriviligesError } from "../errors/priviligesError";
 
 
 export const errorHandler = (err:any, _req: Request, res: Response, _next: NextFunction) => {
@@ -47,6 +49,16 @@ export const errorHandler = (err:any, _req: Request, res: Response, _next: NextF
     }
 
     if (err instanceof NotAuthenticatedError) {
+        console.error(err);
+        return res.status(err.statusCode).json({message:err.message});
+    }
+
+    if (err instanceof ContractNotFoundError) {
+        console.error(err);
+        return res.status(err.statusCode).json({message:err.message});
+    }
+
+    if (err instanceof NoPriviligesError) {
         console.error(err);
         return res.status(err.statusCode).json({message:err.message});
     }

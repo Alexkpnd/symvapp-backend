@@ -16,7 +16,7 @@ export const register = async (req:Request, res: Response, next: NextFunction) =
     try {
         const created = await authService.register(req.body);
         res.status(201).json({id:created._id, username: created.username, role: created.role})
-    }catch (err) {
+    }catch (err: any) {
         next(err);
     }
 }

@@ -11,6 +11,6 @@ router.get('/', authenticate,  contractCtrl.findAllContracts);
 router.get('/:id', authenticate, validateObjId("id"), contractCtrl.findContractById);
 router.post('/',authenticate, validate(createContractSchema), contractCtrl.createNewContract);
 router.put('/:id', authenticate, validateObjId('id'), validate(updateContractSchema), contractCtrl.updateContract); 
-router.delete('/', authenticate, contractCtrl.removeContract); //admin delete
+router.delete('/:id', authenticate, validateObjId('id'), contractCtrl.removeContract); //admin delete
 
 export default router;

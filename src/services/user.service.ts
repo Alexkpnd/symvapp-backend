@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { EmptyListError } from '../errors/emptyListError';
 import { UserNotFoundError } from '../errors/userNotFoundError';
 import { AlreadyExistsError } from '../errors/alreadyExistsError';
+import { NoPriviligesError } from '../errors/priviligesError';
 
 dotenv.config();
 
@@ -19,7 +20,7 @@ export const findAllUsers = async() => {
 }
 
 export const findUserById = async(id: string) => {
-    const result = await User.findOne({id:id}).lean();
+    const result = await User.findOne({_id:id}).lean();
     if (!result) {
         throw new UserNotFoundError("User with this id not found", 404);
     }
@@ -59,6 +60,20 @@ export const updateUser = async(id: string, payload: Partial<IUser>) => {
     }
     const updatedUser = User.findByIdAndUpdate(id, payload, {new:true});
     return updatedUser
+}
+
+export const updateMyself = async(id:string, payload:Partial<IUser>) => {
+    if (payload.password) {
+        const hashed = await bcrypt.hash(payload.password, SALT);
+        payload.password = hashed;
+    }
+
+    if(payload.role) {
+        throw new NoPriviligesError('Request for Role Forbidden', 403)
+    }
+    
+    const updatedMe =  User.findByIdAndUpdate(id, payload, {new:true});
+    return await updatedMe;
 }
 
 // export const updateUserByEmail = async(email:string, payload: Partial<IUser>) => {

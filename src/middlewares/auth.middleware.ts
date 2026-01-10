@@ -32,7 +32,7 @@ export const authenticate = (req:Request, res:Response, next:NextFunction) => {
         req.user = payload;
         //console.log("REQ USER>>>", req.user);
         next()
-    } catch (err) {
-        next(err);
+    } catch (err:any) {
+        res.status(401).json({message: "Invalid or expired token"})
     }
 }

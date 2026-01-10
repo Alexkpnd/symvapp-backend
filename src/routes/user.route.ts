@@ -13,8 +13,9 @@ const router = Router();
 router.get('/', authenticate, userCtrl.getAllUsers);
 router.get('/:id', authenticate, validateObjId('id'), userCtrl.getUserById);
 router.post('/', authenticate, validate(createUserSchema), userCtrl.createUser); //admin create
-router.put('/:id',authenticate, validateObjId('id'), validate(updateUserSchema),  userCtrl.updateUser); // admin update or not
-router.delete('/:id',authenticate, userCtrl.removeUserById); // admin delete
+router.put('/update/:id',authenticate, validateObjId('id'), validate(updateUserSchema),  userCtrl.updateUser); // admin update 
+router.put('/updateme',authenticate, validate(updateUserSchema), userCtrl.updateMe);
+router.delete('/:id',authenticate, validateObjId('id'), userCtrl.removeUserById); // admin delete
 
 
 export default router;

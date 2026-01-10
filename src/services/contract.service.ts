@@ -14,7 +14,7 @@ export const findAllContracts = async() => {
 }
 
 export const findContractById = async(id: string) => {
-    const result = await Contract.findOne({id:id}).lean();
+    const result = await Contract.findOne({_id:id}).lean();
     if (!result) {
         throw new ContractNotFoundError("Contract requested, not found", 404);
     }
