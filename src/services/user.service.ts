@@ -18,6 +18,15 @@ export const findAllUsers = async() => {
     return result;
 }
 
+export const findUserById = async(id: string) => {
+    const result = await User.findOne({id:id}).lean();
+    if (!result) {
+        throw new UserNotFoundError("User with this id not found", 404);
+    }
+
+    return result;
+}
+
 // Admin Role User Creation
 export const createUser = async(payload: IUser ) => {
     if (payload.password) {
@@ -38,10 +47,6 @@ export const createUser = async(payload: IUser ) => {
         }
     }
     
-    // if (payload.role) {
-    //     payload.role = "EDITOR";
-    // }
-
     const user = new User(payload)
     return user.save();
 }
@@ -56,26 +61,26 @@ export const updateUser = async(id: string, payload: Partial<IUser>) => {
     return updatedUser
 }
 
-export const updateUserByEmail = async(email:string, payload: Partial<IUser>) => {
-    if (payload.password) {
-        const hashed = await bcrypt.hash(payload.password, SALT);
-        payload.password = hashed;
-    }
-    const res = await User.find();
-    if (res.length === 0 ) {
-        throw new EmptyListError("Empty list", 404);
-    }
+// export const updateUserByEmail = async(email:string, payload: Partial<IUser>) => {
+//     if (payload.password) {
+//         const hashed = await bcrypt.hash(payload.password, SALT);
+//         payload.password = hashed;
+//     }
+//     const res = await User.find();
+//     if (res.length === 0 ) {
+//         throw new EmptyListError("Empty list", 404);
+//     }
 
-    const user = await User.findOne({email:email})
-    if (!user) {
-        throw new UserNotFoundError("User not found", 404);
-    }
+//     const user = await User.findOne({email:email})
+//     if (!user) {
+//         throw new UserNotFoundError("User not found", 404);
+//     }
         
-    const updatedUser = await User.updateOne({email: user!.email},{$set:payload})
-    //const updatedUser = await User.findOneAndUpdate({email: email},{$set:payload}) // 
-    return updatedUser
+//     const updatedUser = await User.updateOne({email: user!.email},{$set:payload})
+//     //const updatedUser = await User.findOneAndUpdate({email: email},{$set:payload}) // 
+//     return updatedUser
 
-}
+// }
 
 export const deleteUserById = async (id:string) => {
     return  User.findByIdAndDelete(id);
