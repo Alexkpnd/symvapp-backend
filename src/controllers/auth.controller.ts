@@ -21,6 +21,7 @@ export const register = async (req:Request, res: Response, next: NextFunction) =
     }
 }
 
-// export const me = async (req:Request, res: Response, next: NextFunction) =>{
-//     console.log("Me>>", req.user)
-// }
+export const me = async (req:Request, res: Response, next: NextFunction) =>{
+    if (!req.user) return res.status(401).json({ message: 'Not authenticated' });
+    res.json(req.user);
+}
