@@ -19,7 +19,7 @@ const ContractSchema = new Schema<IContract> ({
     contractPrice : {type: String},
     propertyArea : {type: String},
     createdBy : {type: Schema.Types.ObjectId, ref: "User", required: true},
-    isSigned : {type: Boolean}
+    isSigned : {type: Boolean, default: false}
 },
 {
     collection: "contracts",
