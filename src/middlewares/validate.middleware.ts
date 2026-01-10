@@ -11,9 +11,7 @@ export const validate = (schema:ZodSchema<any>) => (req: Request, res:Response, 
         }
         schema.parse(toValidate.body);
         next();
-    } catch (err:any){
-        //console.error(err)
-        //return res.status(400).json({message: "Problem in form data", error: err})
+    } catch (err){
         next(err);
     }
 }
