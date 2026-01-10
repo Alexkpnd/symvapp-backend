@@ -12,11 +12,11 @@ export const findAllContracts = async (req:Request, res:Response, next:NextFunct
 }
 
 
-// export const createNewContract = async (req:Request, res:Response, next:NextFunction) => {
-//     try {
-//         const newContractResult = await contractService.createContract(req.body, req.user.id);
-//         res.status(201).json(newContractResult);
-//     } catch (err) {
-//         next(err)
-//     }
-// }
+export const createNewContract = async (req:Request, res:Response, next:NextFunction) => {
+    try {
+        const newContractResult = await contractService.createContract(req.body, req.user.id);
+        res.status(201).json(newContractResult);
+    } catch (err) {
+        next(err)
+    }
+}

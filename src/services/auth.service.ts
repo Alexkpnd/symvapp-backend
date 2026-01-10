@@ -24,13 +24,14 @@ export const login = async (email:string, password:string) => {
     if(!match) throw new InvalidCredentialsError("Invalid Credentials", 401);
 
     const payload: AuthPayload = {
+        id: user._id,
         email: user.email,
         username: user.username,
         role: user.role
 
     }
     const token = jwt.sign(payload as any, JWT_SECRET, {expiresIn: "1h"})
-    console.log(token);
+    //console.log(token);
     return {user,token}
 }
 

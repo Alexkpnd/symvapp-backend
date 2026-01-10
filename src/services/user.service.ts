@@ -11,7 +11,7 @@ const SALT = parseInt(process.env.SALT_ROUNDS!);
 
 
 export const findAllUsers = async() => {
-    const result = await User.find();
+    const result = await User.find().lean();
     if (result.length === 0) {
         throw new EmptyListError("No users in database", 404)
     }

@@ -4,7 +4,7 @@ import { AlreadyExistsError } from '../errors/alreadyExistsError';
 
 
 export const findAllContracts = async() => {
-    const result = await Contract.find();
+    const result = await Contract.find().populate({path:'createdBy', select:'username -_id'}).lean();
     if (result.length === 0) {
         throw new EmptyListError("No contracts in database", 404)
     }
@@ -13,6 +13,7 @@ export const findAllContracts = async() => {
 }
 
 export const createContract = async(payload: IContract, userId: string) =>{
+    //console.log(userId);
     if(payload.contractNum) {
         const existedCon = await Contract.findOne({contractNum : payload.contractNum})
         if (existedCon) {
@@ -21,6 +22,6 @@ export const createContract = async(payload: IContract, userId: string) =>{
     }
    
     const contract = new Contract({...payload, createdBy:userId});
-    return contract.save();
+    return contract.save()
 
 }
