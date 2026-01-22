@@ -1,5 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
+import cors from 'cors'
 import authRoutes from './routes/auth.route';
 import userRoutes from './routes/user.route';
 import contractRoutes from './routes/contract.route';
@@ -10,6 +11,9 @@ const app = express();
 
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(cors({
+    origin: ['http://localhost:4200']
+}))
 
 
 app.use('/api/users', userRoutes)
