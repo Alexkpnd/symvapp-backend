@@ -40,7 +40,7 @@ export const errorHandler = (err:any, _req: Request, res: Response, _next: NextF
 
     if (err instanceof ZodError) {
         console.error(err)
-        return res.status(400).json({message:" Validation Error >>>", error:err.message})
+        return res.status(400).json({message:" Zod Validation Error"})
     }
 
     if (err instanceof ValidatedObjIdError) {
