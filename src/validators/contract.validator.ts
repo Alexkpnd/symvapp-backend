@@ -2,7 +2,7 @@ import { z } from "zod";
 
 
 export const createContractSchema = z.object({
-    contractNum: z.number().optional(),
+    contractNum: z.string(),
     contractSeller : z.string().optional(),
     contractBuyer : z.string().optional(),
     contractPrice : z.string().optional(),

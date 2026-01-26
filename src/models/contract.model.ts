@@ -1,7 +1,7 @@
 import { Schema, model, Document, Types } from "mongoose";
 
 export interface IContract extends Document {
-    contractNum? : number;
+    contractNum : string;
     contractSeller? : string;
     contractBuyer? : string;
     contractPrice? : string;
@@ -13,7 +13,7 @@ export interface IContract extends Document {
 
 
 const ContractSchema = new Schema<IContract> ({
-    contractNum : {type: Number},
+    contractNum : {type: String, required:true, unique:true},
     contractSeller : {type: String},
     contractBuyer : {type: String},
     contractPrice : {type: String},

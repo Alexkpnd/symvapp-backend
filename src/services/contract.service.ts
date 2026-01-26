@@ -24,14 +24,16 @@ export const findContractById = async(id: string) => {
 
 export const createContract = async(payload: IContract, userId: string) =>{
     //console.log(userId);
-    if(payload.contractNum) {
-        const existedCon = await Contract.findOne({contractNum : payload.contractNum})
-        if (existedCon) {
+    
+    
+       let fixedConNum = payload.contractNum?.trim();
+    
+    const existedCon = await Contract.findOne({contractNum : fixedConNum})
+        if (existedCon && existedCon.contractNum === fixedConNum) {
             throw new AlreadyExistsError("Contract number already exists", 409)
         }
-    }
    
-    const contract = new Contract({...payload, createdBy:userId});
+    const contract = new Contract({...payload, contractNum:fixedConNum, createdBy:userId});
     return contract.save()
 
 }
