@@ -23,8 +23,6 @@ export const findContractById = async(id: string) => {
 }
 
 export const createContract = async(payload: IContract, userId: string) =>{
-    //console.log(userId);
-    
     
        let fixedConNum = payload.contractNum?.trim();
     

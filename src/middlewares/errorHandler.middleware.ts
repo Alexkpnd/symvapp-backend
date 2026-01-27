@@ -64,6 +64,6 @@ export const errorHandler = (err:any, _req: Request, res: Response, _next: NextF
     }
 
     
-    console.error(err); // programming / unknown error
+    console.error(err); 
     return res.status(500).json({message: 'Internal Server Error'})
 }

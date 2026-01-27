@@ -38,20 +38,20 @@ export const updateUser = async(req:Request, res:Response, next:NextFunction) =>
     }
 }
 
-export const updateMe = async(req:Request, res:Response, next:NextFunction) => {
-    try{
-        //console.log(req.user.id)
-        const updateMeResult = await userService.updateMyself(req.user.id, req.body);
-        res.status(200).json(updateMeResult);
-    } catch (err:any) {
-        next(err);
-    }
-}
+// export const updateMe = async(req:Request, res:Response, next:NextFunction) => {
+//     try{
+//         //console.log(req.user.id)
+//         const updateMeResult = await userService.updateMyself(req.user.id, req.body);
+//         res.status(200).json(updateMeResult);
+//     } catch (err:any) {
+//         next(err);
+//     }
+// }
 
 export const removeUserById = async (req:Request, res:Response, next:NextFunction) => {
     try {
         const deletedUserResult = await userService.deleteUserById(req.params.id!)
-        res.status(201).json(deletedUserResult);
+        res.status(200).json(deletedUserResult);
     } catch (err:any) {
         next(err);
     }

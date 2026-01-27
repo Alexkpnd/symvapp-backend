@@ -62,19 +62,19 @@ export const updateUser = async(id: string, payload: Partial<IUser>) => {
     return updatedUser
 }
 
-export const updateMyself = async(id:string, payload:Partial<IUser>) => {
-    if (payload.password) {
-        const hashed = await bcrypt.hash(payload.password, SALT);
-        payload.password = hashed;
-    }
+// export const updateMyself = async(id:string, payload:Partial<IUser>) => {
+//     if (payload.password) {
+//         const hashed = await bcrypt.hash(payload.password, SALT);
+//         payload.password = hashed;
+//     }
 
-    if(payload.role) {
-        throw new NoPriviligesError('Request for Role Forbidden', 403)
-    }
+//     if(payload.role) {
+//         throw new NoPriviligesError('Request for Role Forbidden', 403)
+//     }
     
-    const updatedMe =  User.findByIdAndUpdate(id, payload, {new:true});
-    return await updatedMe;
-}
+//     const updatedMe =  User.findByIdAndUpdate(id, payload, {new:true});
+//     return await updatedMe;
+// }
 
 // export const updateUserByEmail = async(email:string, payload: Partial<IUser>) => {
 //     if (payload.password) {

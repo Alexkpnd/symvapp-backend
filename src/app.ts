@@ -6,9 +6,11 @@ import userRoutes from './routes/user.route';
 import contractRoutes from './routes/contract.route';
 import { pageNotFound } from './middlewares/pageNotFound.middleware';
 import { errorHandler } from './middlewares/errorHandler.middleware';
+import { setupSwagger } from './swagger';
 
 const app = express();
 
+setupSwagger(app);
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors({
