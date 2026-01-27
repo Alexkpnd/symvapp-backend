@@ -35,8 +35,6 @@ JWT_SECRET=super_secret_key
 
 ```
 
-❗ **Μην κάνεις commit το `.env` αρχείο**
-
 ------------------------------------------------------------------------
 ##  Run the Application (Development)
 
@@ -66,7 +64,7 @@ Header:
 
 ------------------------------------------------------------------------
 
-## 🏗️ Build (Production)
+##  Build (Production)
 
 
 
@@ -76,7 +74,7 @@ npm run build
 
 ------------------------------------------------------------------------
 
-## 🚀 Deploy (Production)
+##  Deploy (Production)
 
 ``` bash
 npm run start
