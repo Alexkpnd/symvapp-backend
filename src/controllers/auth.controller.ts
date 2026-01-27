@@ -6,7 +6,7 @@ export const login = async (req:Request, res: Response, next: NextFunction) => {
     try {
         const {email, password} = req.body;
         const result = await authService.login(email, password);
-        res.status(200).json({token:result.token, user:result.user});
+        res.status(200).json({token:result.token});
     } catch (err: any) {
         next(err);
     }
@@ -22,6 +22,10 @@ export const register = async (req:Request, res: Response, next: NextFunction) =
 }
 
 export const me = async (req:Request, res: Response, next: NextFunction) =>{
-    if (!req.user) return res.status(401).json({ message: 'Not authenticated' });
-    res.json(req.user);
+    try{
+        const result = await authService.showMe(req.user.id);
+        res.status(200).json(result)
+    } catch (err:any) {
+        next(err);
+    }
 }

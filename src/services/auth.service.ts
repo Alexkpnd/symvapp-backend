@@ -32,7 +32,7 @@ export const login = async (email:string, password:string) => {
     }
     const token = jwt.sign(payload as any, JWT_SECRET, {expiresIn: "1h"})
     //console.log(token);
-    return {user,token}
+    return {token}
 }
 
 
@@ -62,3 +62,11 @@ export const register = async(payload: Partial<IUser>) => {
     )
     return user.save();
 } 
+
+export const showMe = async(id:string) => {
+    const result = await User.findById(id).select('-password').lean();
+    if (!result) {
+        throw new UserNotFoundError("User not found", 404);
+    }
+    return result
+}
