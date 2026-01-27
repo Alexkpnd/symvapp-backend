@@ -19,7 +19,7 @@ const options: swaggerJSDoc.Options = {
                 description: "Local Server"
             },
             {
-                url:"http://tester.gr",
+                url:"https://symvapp-backend.onrender.com/api",
                 description: "Online Server"
             }
         ],
