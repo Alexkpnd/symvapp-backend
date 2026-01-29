@@ -63,5 +63,9 @@ export const updateUser = async(id: string, payload: Partial<IUser>) => {
 }
 
 export const deleteUserById = async (id:string) => {
-    return  User.findByIdAndDelete(id);
+    const checkAdminRole = await User.findOne({_id:id})
+    if (checkAdminRole?.role === 'ADMIN') {
+        throw new NoPriviligesError("User deletion forbidden",403)
+    }
+    return  User.findByIdAndDelete(checkAdminRole?._id);
 }
