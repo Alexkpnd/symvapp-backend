@@ -179,7 +179,7 @@ router.post('/', authenticate, hasAdminRole, validate(createUserSchema), userCtr
  *          500:
  *              description: Internal Server Error
  */
-router.put('/update/:id',authenticate, hasAdminRole, validateObjId('id'), validate(updateUserSchema),  userCtrl.updateUser); // admin update 
+router.put('/update/:id',authenticate, validateObjId('id'), validate(updateUserSchema),  userCtrl.updateUser); // admin update 
 
 /**
  * @openapi
